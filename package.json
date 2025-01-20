@@ -1,6 +1,7 @@
 {
     "name": "@jstz-dev/cli",
     "version": "0.0.1",
+    "main": "./index.js",
     "dependencies": {},
     "scripts": {
         "postinstall": "echo 1"
