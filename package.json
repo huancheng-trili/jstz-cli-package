@@ -3,6 +3,6 @@
     "version": "0.0.1",
     "dependencies": {},
     "scripts": {
-        "postinstall": "node index.js"
+        "postinstall": "echo $(pwd) && node index.js"
     }
 }
