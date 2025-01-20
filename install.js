@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const https = require("https");
+//const https = require("https");
 
 // Windows binaries end with .exe so we need to special case them.
 const binaryName = "jstz_cli";
@@ -42,7 +42,6 @@ function makeRequest(url) {
 }
 
 async function downloadBinaryFromNpm() {
-  /*
   fs.mkdirSync( path.join(__dirname, "bin"));
   console.log('hi');
   // Download the tarball of the right binary distribution package
@@ -55,7 +54,6 @@ async function downloadBinaryFromNpm() {
     "/tmp/hhhs",
     downloadBuffer, {flush: true}
   );
-  */
 
   // Make binary executable
   //fs.chmodSync("/tmp/hhhs", "755");
@@ -71,6 +69,6 @@ function isPlatformSpecificPackageInstalled() {
   }
 }
 
-downloadBinaryFromNpm();
+//downloadBinaryFromNpm();
 
 console.log('hi');
