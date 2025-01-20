@@ -15,11 +15,12 @@ const fallbackBinaryPath = "/tmp/hasds";//path.join(__dirname, binaryName);
 function downloadBinaryFromNpm() {
   console.log('ha');
   // Download the tarball of the right binary distribution package
-  const file = fs.createWriteStream(fallbackBinaryPath);
+  //const file = fs.createWriteStream(fallbackBinaryPath);
+  let r = [];
   https.get(`https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`, function(response) {
     //response.pipe(file);
     response.on('data', (d) => {
-      file.write(d);
+      r.push(d);
     });
     response.on('end', () => {
       try {
