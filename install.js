@@ -5,7 +5,7 @@ const path = require("path");
 const https = require("https");
 
 // Windows binaries end with .exe so we need to special case them.
-const binaryName = `jstz_${process.env.npm_package_version}`;
+const binaryName = "jstz";
 
 // Compute the path we want to emit the fallback binary to
 const fallbackBinaryPath = path.join(__dirname, binaryName);
