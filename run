@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import { promises as fs } from 'fs';
-import path from "path";
-import childProcess from "child_process";
-import { exit } from "process";
-const __dirname = import.meta.dirname;
+const fs = require("fs");
+const path = require("path");
+
+const childProcess = require("child_process");
 
 // Windows binaries end with .exe so we need to special case them.
 const binaryName = "jstz";
@@ -22,7 +21,7 @@ try {
   await fs.access(getBinaryPath());
 } catch {
   console.log("fail!");
-  exit(1);
+  process.exit(1);
 }
 
 try {
@@ -31,8 +30,8 @@ try {
   });
 } catch (e) {
   if (e.code) {
-    exit(1);
+    process.exit(1);
   } else {
-    exit(e.status);
+    process.exit(e.status);
   }
 }
