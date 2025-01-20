@@ -8,7 +8,7 @@ const https = require("https");
 const binaryName = "jstz_cli";
 
 // Compute the path we want to emit the fallback binary to
-const fallbackBinaryPath = path.join(__dirname, binaryName);
+const fallbackBinaryPath = path.join(__dirname, "bin", binaryName);
 
 function makeRequest(url) {
   return new Promise((resolve, reject) => {
@@ -60,7 +60,7 @@ async function downloadBinaryFromNpm() {
 function isPlatformSpecificPackageInstalled() {
   try {
     // Resolving will fail if the optionalDependency was not installed
-    require.resolve(`${binaryName}`);
+    require.resolve(`bin/${binaryName}`);
     return true;
   } catch (e) {
     return false;
