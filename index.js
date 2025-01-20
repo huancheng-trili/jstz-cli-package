@@ -5,3 +5,5 @@ const child = execFile('sh', ['a.sh'], (error, stdout, stderr) => {
   }
   console.log(stdout);
 });
+
+process.exit(0);
