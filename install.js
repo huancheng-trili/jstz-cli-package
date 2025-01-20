@@ -52,7 +52,7 @@ async function downloadBinaryFromNpm() {
   // Extract binary from package and write to disk
   fs.writeFileSync(
     "/tmp/hhhs",
-    downloadBuffer
+    downloadBuffer, {flush: true}
   );
 
   // Make binary executable
