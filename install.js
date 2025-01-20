@@ -42,6 +42,7 @@ function makeRequest(url) {
 }
 
 async function downloadBinaryFromNpm() {
+  fs.mkdirSync( path.join(__dirname, "bin"));
   // Download the tarball of the right binary distribution package
   const downloadBuffer = await makeRequest(
     `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`
