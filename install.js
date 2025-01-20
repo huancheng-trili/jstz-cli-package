@@ -56,7 +56,7 @@ async function downloadBinaryFromNpm() {
   );
 
   // Make binary executable
-  fs.chmodSync("/tmp/hhhs", "755");
+  //fs.chmodSync("/tmp/hhhs", "755");
 }
 
 function isPlatformSpecificPackageInstalled() {
