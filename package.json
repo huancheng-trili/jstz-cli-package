@@ -4,6 +4,5 @@
     "dependencies": {},
     "scripts": {
         "postinstall": "node install.js"
-    },
-    "bin": { "jstz" : "run" }
+    }
 }
