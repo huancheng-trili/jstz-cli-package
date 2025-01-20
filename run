@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+import { promises as fs } from 'fs';
+import path from "path";
+import childProcess from "child_process";
+import { exit } from "process";
+const __dirname = import.meta.dirname;
+
+process.env["PATH"] += path.delimiter + __dirname + path.sep + "bin"
+
+// Windows binaries end with .exe so we need to special case them.
+const binaryName = "jstz";
+
+function getBinaryPath() {
+  try {
+    // Resolving will fail if the optionalDependency was not installed
+    return require.resolve(`${binaryName}`);
+  } catch (e) {
+    return path.join(__dirname, "bin", binaryName);
+  }
+}
+
+try {
+  await fs.access(getBinaryPath());
+} catch {
+  console.log("fail!");
+  exit(1);
+}
+
+try {
+  childProcess.execFileSync(getBinaryPath(), process.argv.slice(2), {
+    stdio: "inherit",
+  });
+} catch (e) {
+  if (e.code) {
+    exit(1);
+  } else {
+    exit(e.status);
+  }
+}
