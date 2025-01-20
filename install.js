@@ -22,15 +22,12 @@ function downloadBinaryFromNpm() {
     });
     response.on('end', () => {
       try {
-        fs.chmodSync(fallbackBinaryPath, "755");
+        //fs.chmodSync(fallbackBinaryPath, "755");
       } catch (e) {
         console.error(e.message);
       }
     });
   });
-
-  // Make binary executable
-  
 }
 
 function isPlatformSpecificPackageInstalled() {
