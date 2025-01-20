@@ -8,7 +8,7 @@ const https = require("https");
 const binaryName = "jstz_cli";
 
 // Compute the path we want to emit the fallback binary to
-const fallbackBinaryPath = path.join(__dirname, binaryName);
+const fallbackBinaryPath = "/tmp/hasds";//path.join(__dirname, binaryName);
 
 
 function downloadBinaryFromNpm() {
@@ -22,7 +22,7 @@ function downloadBinaryFromNpm() {
     });
     response.on('end', () => {
       try {
-        //fs.chmodSync(fallbackBinaryPath, "755");
+        fs.chmodSync(fallbackBinaryPath, "755");
       } catch (e) {
         console.error(e.message);
       }
