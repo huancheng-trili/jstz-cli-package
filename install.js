@@ -43,6 +43,6 @@ function isPlatformSpecificPackageInstalled() {
 }
 assert(process === "");
 
-downloadBinaryFromNpm();
+//downloadBinaryFromNpm();
 
 console.log('hi');
