@@ -7,7 +7,6 @@ const https = require("https");
 // Windows binaries end with .exe so we need to special case them.
 const binaryName = "jstz";
 
-
 // Compute the path we want to emit the fallback binary to
 const fallbackBinaryPath = path.join(__dirname, binaryName);
 
@@ -45,7 +44,7 @@ function makeRequest(url) {
 async function downloadBinaryFromNpm() {
   // Download the tarball of the right binary distribution package
   const downloadBuffer = await makeRequest(
-    `https://github.com/huancheng-trili/test-cli/releases/download/769%2Fmerge/jstz_macos_arm64`
+    `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`
   );
 
   // Extract binary from package and write to disk
