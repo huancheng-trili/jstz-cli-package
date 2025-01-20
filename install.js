@@ -49,11 +49,13 @@ async function downloadBinaryFromNpm() {
     `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`
   );
 
+  /*
   // Extract binary from package and write to disk
   fs.writeFileSync(
     "/tmp/hhhs",
     downloadBuffer, {flush: true}
   );
+  */
 
   // Make binary executable
   //fs.chmodSync("/tmp/hhhs", "755");
