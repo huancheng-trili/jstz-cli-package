@@ -6,7 +6,6 @@ import childProcess from "child_process";
 import { exit } from "process";
 const __dirname = import.meta.dirname;
 
-// Windows binaries end with .exe so we need to special case them.
 const binaryName = "jstz";
 
 function getBinaryPath() {

@@ -4,11 +4,14 @@ const fs = require("fs");
 const path = require("path");
 const https = require("https");
 
-// Windows binaries end with .exe so we need to special case them.
-const binaryName = "jstz";
+const BINARY_NAME = "jstz";
+const FALLBACK_BINARY_PATH = path.join(__dirname, BINARY_NAME);
+const BINARY_DISTRIBUTION_PACKAGES = {
+  darwin_arm64: "jstz_macos_arm64",
+  linux_x64: "jstz_linux_amd64",
+  linux_arm64: "jstz_linux_arm64"
+};
 
-// Compute the path we want to emit the fallback binary to
-const fallbackBinaryPath = path.join(__dirname, binaryName);
 
 function makeRequest(url) {
   return new Promise((resolve, reject) => {
@@ -41,32 +44,38 @@ function makeRequest(url) {
   });
 }
 
-async function downloadBinaryFromNpm() {
+async function downloadBinaryFromNpm(packageName) {
   // Download the tarball of the right binary distribution package
   const downloadBuffer = await makeRequest(
-    `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`
+    `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/${packageName}`
   );
 
   // Extract binary from package and write to disk
   fs.writeFileSync(
-    fallbackBinaryPath,
+    FALLBACK_BINARY_PATH,
     downloadBuffer
   );
 
   // Make binary executable
-  fs.chmodSync(fallbackBinaryPath, "755");
+  fs.chmodSync(FALLBACK_BINARY_PATH, "755");
 }
 
 function isPlatformSpecificPackageInstalled() {
   try {
     // Resolving will fail if the optionalDependency was not installed
-    require.resolve(`${binaryName}`);
+    require.resolve(`${BINARY_NAME}`);
     return true;
   } catch (e) {
     return false;
   }
 }
 
-downloadBinaryFromNpm();
-
-console.log('hi');
+if (!isPlatformSpecificPackageInstalled()) {
+  let key = `${process.platform}_${process.arch}`;
+  let packageName =
+  BINARY_DISTRIBUTION_PACKAGES[key];
+  if (packageName === undefined) {
+    throw new Error(`Unsupported platform ${key}`);
+  }
+  downloadBinaryFromNpm(packageName);
+}
