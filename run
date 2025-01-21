@@ -6,14 +6,14 @@ const path = require("path");
 const childProcess = require("child_process");
 
 // Windows binaries end with .exe so we need to special case them.
-const binaryName = "jstz_cli";
+const binaryName = "jstz";
 
 function getBinaryPath() {
   try {
     // Resolving will fail if the optionalDependency was not installed
     return require.resolve(`${binaryName}`);
   } catch (e) {
-    return path.join(__dirname, "bin", binaryName);
+    return path.join(__dirname, binaryName);
   }
 }
 

@@ -2,13 +2,13 @@
 
 const fs = require("fs");
 const path = require("path");
-//const https = require("https");
+const https = require("https");
 
 // Windows binaries end with .exe so we need to special case them.
-const binaryName = "jstz_cli";
+const binaryName = "jstz";
 
 // Compute the path we want to emit the fallback binary to
-const fallbackBinaryPath = path.join(__dirname, "bin", binaryName);
+const fallbackBinaryPath = path.join(__dirname, binaryName);
 
 function makeRequest(url) {
   return new Promise((resolve, reject) => {
@@ -42,8 +42,6 @@ function makeRequest(url) {
 }
 
 async function downloadBinaryFromNpm() {
-  fs.mkdirSync( path.join(__dirname, "bin"));
-  console.log('hi');
   // Download the tarball of the right binary distribution package
   const downloadBuffer = await makeRequest(
     `https://github.com/huancheng-trili/test-cli/releases/download/${process.env.npm_package_version}/jstz_macos_arm64`
@@ -51,24 +49,24 @@ async function downloadBinaryFromNpm() {
 
   // Extract binary from package and write to disk
   fs.writeFileSync(
-    "/tmp/hhhs",
-    downloadBuffer, {flush: true}
+    fallbackBinaryPath,
+    downloadBuffer
   );
 
   // Make binary executable
-  //fs.chmodSync("/tmp/hhhs", "755");
+  fs.chmodSync(fallbackBinaryPath, "755");
 }
 
 function isPlatformSpecificPackageInstalled() {
   try {
     // Resolving will fail if the optionalDependency was not installed
-    require.resolve(`bin/${binaryName}`);
+    require.resolve(`${binaryName}`);
     return true;
   } catch (e) {
     return false;
   }
 }
 
-//downloadBinaryFromNpm();
+downloadBinaryFromNpm();
 
 console.log('hi');

@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "dependencies": {},
     "scripts": {
-        "postinstall": "echo 123"
-    }
+        "postinstall": "node install.js"
+    },
+    "bin": { "jstz" : "run" }
 }
